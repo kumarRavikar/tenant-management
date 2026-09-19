@@ -49,7 +49,14 @@ jobs:
 
       - name: Install Backend Dependencies
         working-directory: backend
-        run: npm ci
+        run: npm ci --include=dev
+
+      - name: Verify Jest Dependencies
+        working-directory: backend
+        run: |
+          npm list ts-node
+          node -e "console.log(require.resolve('ts-node'))"
+          npm list jest ts-jest ts-node
 
       - name: Generate Prisma Client
         working-directory: backend
@@ -96,4 +103,3 @@ jobs:
       - name: Run Frontend Vitest Suite
         working-directory: frontend
         run: npm test -- --run
-
