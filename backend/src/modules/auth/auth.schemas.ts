@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { UserRole } from '@prisma/client';
 
+export const userRoleSchema = z.nativeEnum(UserRole as unknown as Record<string, string>);
+
 export const registerSchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
@@ -15,6 +17,7 @@ export const registerSchema = z.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       'Password must contain at least one uppercase letter, one lowercase letter, and one number'
     ),
+  confirmPassword: z.string().optional(),
   firstName: z
     .string({ required_error: 'First name is required' })
     .trim()
@@ -30,8 +33,9 @@ export const registerSchema = z.object({
     .trim()
     .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/, 'Invalid phone number format')
     .optional()
+    .nullable()
     .or(z.literal('')),
-  role: z.nativeEnum(UserRole).optional().default(UserRole.TENANT),
+  role: userRoleSchema.optional().default(UserRole.TENANT),
 });
 
 export const loginSchema = z.object({
@@ -78,4 +82,11 @@ export const resetPasswordSchema = z.object({
 export const refreshTokenSchema = z.object({
   refreshToken: z.string().optional(),
 });
+
+export type RegisterInput = z.infer<typeof registerSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+export type RefreshTokenInput = z.infer<typeof refreshTokenSchema>;
 

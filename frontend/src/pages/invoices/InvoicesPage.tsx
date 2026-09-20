@@ -292,7 +292,7 @@ export const InvoicesPage: React.FC = () => {
               setCreateError(null);
               setIsCreateOpen(true);
             }}
-            className="flex items-center gap-2"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto"
           >
             <Plus className="w-4 h-4" />
             Generate Invoice
@@ -350,8 +350,8 @@ export const InvoicesPage: React.FC = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="flex flex-wrap items-center gap-3 bg-white p-4 rounded-xl border border-slate-200">
-        <div className="w-48">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 bg-white p-4 rounded-xl border border-slate-200">
+        <div className="w-full sm:w-48">
           <Select
             label=""
             value={statusFilter}
@@ -370,7 +370,7 @@ export const InvoicesPage: React.FC = () => {
           />
         </div>
 
-        <div className="w-48">
+        <div className="w-full sm:w-48">
           <Input
             type="month"
             label=""

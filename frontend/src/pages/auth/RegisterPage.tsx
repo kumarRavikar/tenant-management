@@ -39,7 +39,8 @@ export const RegisterPage: React.FC = () => {
 
     try {
       const validated = registerFormSchema.parse(formData);
-      await registerMutation.mutateAsync(validated);
+      const { confirmPassword: _, ...registerPayload } = validated;
+      await registerMutation.mutateAsync(registerPayload);
       setSuccessMessage('Registration successful! Redirecting to login...');
       setTimeout(() => {
         navigate('/login');

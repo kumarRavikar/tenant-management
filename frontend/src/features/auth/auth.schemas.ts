@@ -4,7 +4,8 @@ export const loginFormSchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
     .email('Invalid email address')
-    .trim(),
+    .trim()
+    .toLowerCase(),
   password: z.string({ required_error: 'Password is required' }).min(1, 'Password is required'),
 });
 
@@ -28,6 +29,7 @@ export const registerFormSchema = z
       .trim()
       .regex(/^(\+\d{1,3}[- ]?)?\d{10}$/, 'Invalid phone number format (e.g. 10 digits)')
       .optional()
+      .nullable()
       .or(z.literal('')),
     password: z
       .string({ required_error: 'Password is required' })
@@ -36,7 +38,9 @@ export const registerFormSchema = z
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
         'Must include at least 1 uppercase letter, 1 lowercase letter, and 1 number'
       ),
-    confirmPassword: z.string({ required_error: 'Please confirm your password' }),
+    confirmPassword: z
+      .string({ required_error: 'Please confirm your password' })
+      .min(1, 'Please confirm your password'),
     role: z.enum(['SUPER_ADMIN', 'PROPERTY_ADMIN', 'MANAGER', 'OWNER', 'TENANT']).default('TENANT'),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -54,7 +58,9 @@ export const changePasswordFormSchema = z
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
         'Must include at least 1 uppercase letter, 1 lowercase letter, and 1 number'
       ),
-    confirmNewPassword: z.string({ required_error: 'Please confirm your new password' }),
+    confirmNewPassword: z
+      .string({ required_error: 'Please confirm your new password' })
+      .min(1, 'Please confirm your new password'),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     message: 'Passwords do not match',
@@ -65,7 +71,8 @@ export const forgotPasswordFormSchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
     .email('Invalid email address')
-    .trim(),
+    .trim()
+    .toLowerCase(),
 });
 
 export const resetPasswordFormSchema = z
@@ -78,10 +85,18 @@ export const resetPasswordFormSchema = z
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
         'Must include at least 1 uppercase letter, 1 lowercase letter, and 1 number'
       ),
-    confirmNewPassword: z.string({ required_error: 'Please confirm your new password' }),
+    confirmNewPassword: z
+      .string({ required_error: 'Please confirm your new password' })
+      .min(1, 'Please confirm your new password'),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     message: 'Passwords do not match',
     path: ['confirmNewPassword'],
   });
+
+export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type RegisterFormValues = z.infer<typeof registerFormSchema>;
+export type ChangePasswordFormValues = z.infer<typeof changePasswordFormSchema>;
+export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordFormSchema>;
 
