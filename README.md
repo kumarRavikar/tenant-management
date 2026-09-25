@@ -131,7 +131,7 @@ PostgreSQL Relational Database & Redis Cache/Queue
    - Lease expiration report (upcoming 30/60/90 days).
    - **Instant CSV export** & **Styled PDF generation** with `pdfkit`.
 7. **Swagger / OpenAPI Documentation**:
-   - Interactive API documentation mounted at `http://localhost:5000/api/docs`.
+   - Interactive API documentation mounted at `https://tenant-management-2.onrender.com/api/docs`.
 8. **Docker & Container Orchestration**:
    - Multi-stage Dockerfiles for backend and frontend.
    - `docker-compose.yml` orchestrating PostgreSQL 16, Redis 7, Express backend, and Nginx-powered React frontend.
@@ -486,8 +486,8 @@ npx tsx prisma/seed.ts
 docker-compose up --build
 ```
 - Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:5000`
-- Swagger Documentation: `http://localhost:5000/api/docs`
+- Backend API: `https://tenant-management-2.onrender.com`
+- Swagger Documentation: `https://tenant-management-2.onrender.com/api/docs`
 - PostgreSQL: `localhost:5432`
 - Redis: `localhost:6379`
 
@@ -508,8 +508,8 @@ npx prisma migrate dev
 npx tsx prisma/seed.ts
 npm run dev
 ```
-Runs at `http://localhost:5000`.
-Backend runs at `http://localhost:5000`.
+Runs at `https://tenant-management-2.onrender.com`.
+Backend runs at `https://tenant-management-2.onrender.com`.
 
 ### 2. Start the Frontend Application
 ### 3. Start Frontend Application
@@ -537,6 +537,6 @@ cd frontend && npm run build
 
 Interactive Swagger / OpenAPI 3.0 documentation is available at:
 ```text
-http://localhost:5000/api/docs
+https://tenant-management-2.onrender.com/api/docs
 ```
 Explore, test, and view schemas for all endpoints including Authentication, Properties, Units, Leases, Invoices, Payments, Maintenance, Visitors, Notifications, Dashboard, and Reports.
