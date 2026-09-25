@@ -6,9 +6,8 @@ export const getSocket = (token?: string): Socket => {
   if (!socket) {
     const SOCKET_URL =
       import.meta.env.VITE_SOCKET_URL ||
-      (window.location.port === '5173'
-        ? window.location.origin.replace(':5173', ':5000')
-        : window.location.origin);
+      import.meta.env.VITE_API_URL?.replace(/\/api\/?$/, '') ||
+      'https://tenant-management-2.onrender.com';
 
     socket = io(SOCKET_URL, {
       withCredentials: true,
