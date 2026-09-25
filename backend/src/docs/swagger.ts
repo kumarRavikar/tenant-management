@@ -15,7 +15,7 @@ export const swaggerDocument = {
   },
   servers: [
     {
-      url: 'http://localhost:5000',
+      url: 'https://tenant-management-2.onrender.com',
       description: 'Local development server',
     },
   ],
