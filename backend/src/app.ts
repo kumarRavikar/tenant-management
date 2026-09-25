@@ -32,9 +32,17 @@ app.use(
     contentSecurityPolicy: false,
   })
 );
+const allowedOrigins = Array.from(
+  new Set([
+    'https://tenant-management-gray.vercel.app',
+    env.CLIENT_URL,
+    'http://localhost:5173',
+  ])
+).filter(Boolean);
+
 app.use(
   cors({
-    origin: env.CLIENT_URL,
+    origin: allowedOrigins,
     credentials: true,
   })
 );

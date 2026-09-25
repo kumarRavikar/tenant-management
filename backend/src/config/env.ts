@@ -20,7 +20,7 @@ export const env: AppConfig = {
   PORT: parseInt(process.env.PORT || '5000', 10),
   NODE_ENV: (process.env.NODE_ENV as AppConfig['NODE_ENV']) || 'development',
   DATABASE_URL: process.env.DATABASE_URL || '',
-  CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
+  CLIENT_URL: (process.env.CLIENT_URL || 'https://tenant-management-gray.vercel.app').replace(/\/$/, ''),
   JWT_ACCESS_SECRET:
     process.env.JWT_ACCESS_SECRET || 'dev_jwt_access_secret_fallback_key_32_characters_minimum!',
   JWT_REFRESH_SECRET:

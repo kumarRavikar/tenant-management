@@ -18,9 +18,17 @@ export interface AuthenticatedSocket extends Socket {
 }
 
 export const initSocket = (httpServer: HttpServer): SocketIOServer => {
+  const allowedOrigins = Array.from(
+    new Set([
+      'https://tenant-management-gray.vercel.app',
+      env.CLIENT_URL,
+      'http://localhost:5173',
+    ])
+  ).filter(Boolean) as string[];
+
   io = new SocketIOServer(httpServer, {
     cors: {
-      origin: env.CLIENT_URL,
+      origin: allowedOrigins,
       credentials: true,
     },
   });
