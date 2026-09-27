@@ -27,5 +27,5 @@ export const env: AppConfig = {
     process.env.JWT_REFRESH_SECRET || 'dev_jwt_refresh_secret_fallback_key_32_characters_minimum!',
   JWT_ACCESS_EXPIRATION: process.env.JWT_ACCESS_EXPIRATION || '15m',
   JWT_REFRESH_EXPIRATION: process.env.JWT_REFRESH_EXPIRATION || '7d',
-  REDIS_URL: process.env.REDIS_URL || 'redis://localhost:6379',
+  REDIS_URL: process.env.REDIS_URL || '',
 };
