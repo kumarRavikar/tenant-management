@@ -5,7 +5,12 @@ import { logger } from '../utils/logger';
 let redisClient: Redis | null = null;
 let isRedisAvailable = false;
 
-export const getRedisClient = (): Redis => {
+export const getRedisClient = (): Redis  | null => {
+  // Redis is optional
+  if (!env.REDIS_URL) {
+    logger.info('REDIS_URL is not configured. Redis background jobs are disabled.');
+    return null;
+  }
   if (!redisClient) {
     redisClient = new Redis(env.REDIS_URL, {
       maxRetriesPerRequest: null,
