@@ -13,6 +13,11 @@ let reminderQueue: Queue | null = null;
 export const initJobWorkers = (): void => {
   try {
     const redis = getRedisClient();
+     
+     if (!redis) {
+      logger.info('Redis is not configured. Background job workers are disabled.');
+      return;
+    }
 
     // Initialize BullMQ Queues
     billingQueue = new Queue('billing-queue', { connection: redis as any });
