@@ -28,8 +28,8 @@ export const authApi = {
   },
 
   async logout(): Promise<void> {
-    localStorage.removeItem('accessToken');
     await apiClient.post<ApiResponse<void>>('/auth/logout');
+    localStorage.removeItem('accessToken');
   },
 
   async getCurrentUser(): Promise<User> {
